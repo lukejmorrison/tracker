@@ -24,6 +24,17 @@ const FILL: Record<HeatTone | "void", string> = {
   void: "var(--color-raised)",
 };
 
+const LEGEND: [HeatTone | "void", string][] = [
+  ["blocked", "National block"],
+  ["filter", "Open-source filter"],
+  ["restricted", "Restricted"],
+  ["live", "Live court / agency file"],
+  ["demand", "High demand"],
+  ["named", "Named duties"],
+  ["open", "Compiled, quiet"],
+  ["void", "Not in this atlas"],
+];
+
 type WorldObjects = {
   countries: GeometryCollection<{ name: string }>;
   land: GeometryCollection;
@@ -92,12 +103,13 @@ export function AtlasMap({ activeCodes }: { activeCodes: Set<string> }) {
           <h2 className="font-display text-xl tracking-tight">Where the compiled record is hot</h2>
           <p className="mt-1 max-w-2xl text-sm text-muted">
             Same severity order as the list — blocks, the Brazil filter, live
-            court files — not a freedom score. Dim countries are not in this
-            atlas yet. Click a lit country to open it.
+            court files — not a freedom score. Grey land is not compiled.
+            Filters fade compiled countries that are out of the current list;
+            they still open. Click any compiled country.
           </p>
         </div>
         {hover ? (
-          <p className="font-mono text-xs text-muted">
+          <p className="font-mono text-xs text-muted" aria-live="polite">
             <span className="text-fg">{hover.name}</span>
             {hover.code ? ` · ${hover.code}` : ""} · {hover.label}
           </p>
@@ -107,12 +119,13 @@ export function AtlasMap({ activeCodes }: { activeCodes: Set<string> }) {
       </div>
 
       <div className="mt-4 overflow-hidden">
+        {/* No role="img" — that would hide the country links from AT. */}
         <svg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          role="img"
-          aria-label="World map of compiled government action on X"
+          aria-label="World map of compiled government action on X. Compiled countries are links."
           className="h-auto w-full"
         >
+          <title>World map of compiled government action on X</title>
           {paths.map((p, i) => {
             const country = p.iso ? compiled.get(p.iso) : undefined;
             const tone = country ? heatTone(country) : "void";
@@ -129,9 +142,14 @@ export function AtlasMap({ activeCodes }: { activeCodes: Set<string> }) {
                 tabIndex={country ? 0 : undefined}
                 role={country ? "link" : undefined}
                 aria-label={
-                  country ? `${country.name}, ${heatLabel(country)}` : undefined
+                  country
+                    ? `${country.name}, ${heatLabel(country)}${lit ? "" : ", faded by current filter"}`
+                    : undefined
                 }
-                className={cn(country && "cursor-pointer outline-none")}
+                className={cn(
+                  country &&
+                    "cursor-pointer outline-none focus-visible:stroke-[var(--color-fg)] focus-visible:[stroke-width:1.6]",
+                )}
                 onMouseEnter={() => setHover(tipFor(p.iso, p.name))}
                 onMouseLeave={() => setHover(null)}
                 onFocus={() => setHover(tipFor(p.iso, p.name))}
@@ -154,19 +172,12 @@ export function AtlasMap({ activeCodes }: { activeCodes: Set<string> }) {
             const lit = activeCodes.has(m.code);
             const tone = heatTone(country);
             return (
-              <circle
+              <g
                 key={m.code}
-                cx={pt[0]}
-                cy={pt[1]}
-                r={5}
-                fill={FILL[tone]}
-                fillOpacity={lit ? 1 : 0.22}
-                stroke="var(--color-fg)"
-                strokeWidth={0.8}
                 tabIndex={0}
                 role="link"
-                aria-label={`${country.name}, ${heatLabel(country)}`}
-                className="cursor-pointer outline-none"
+                aria-label={`${country.name}, ${heatLabel(country)}${lit ? "" : ", faded by current filter"}`}
+                className="cursor-pointer outline-none focus-visible:[&>circle:last-child]:stroke-[var(--color-fg)]"
                 onMouseEnter={() => setHover(tipFor(m.code, m.name))}
                 onMouseLeave={() => setHover(null)}
                 onFocus={() => setHover(tipFor(m.code, m.name))}
@@ -178,24 +189,25 @@ export function AtlasMap({ activeCodes }: { activeCodes: Set<string> }) {
                     go(m.code);
                   }
                 }}
-              />
+              >
+                <circle cx={pt[0]} cy={pt[1]} r={12} fill="transparent" />
+                <circle
+                  cx={pt[0]}
+                  cy={pt[1]}
+                  r={5}
+                  fill={FILL[tone]}
+                  fillOpacity={lit ? 1 : 0.22}
+                  stroke="var(--color-fg)"
+                  strokeWidth={0.8}
+                />
+              </g>
             );
           })}
         </svg>
       </div>
 
       <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-        {(
-          [
-            ["blocked", "National block"],
-            ["filter", "Open-source filter"],
-            ["restricted", "Restricted"],
-            ["live", "Live court / agency file"],
-            ["demand", "High demand"],
-            ["open", "Compiled, quiet"],
-            ["void", "Not in this atlas"],
-          ] as const
-        ).map(([tone, label]) => (
+        {LEGEND.map(([tone, label]) => (
           <li key={tone} className="inline-flex items-center gap-1.5">
             <span
               className="size-2 rounded-full"
