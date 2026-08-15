@@ -51,7 +51,20 @@ export function Shell({ children }: { children: ReactNode }) {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-xs text-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>Compiled from the open-source X algorithm and X Transparency Reports.</p>
-          <p>Not an official X product. Individual withheld posts are still not public.</p>
+          <p className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link to="/feedback" className="hover:text-fg">
+              Report a gap
+            </Link>
+            <a
+              href="https://github.com/lukejmorrison/tracker"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-fg"
+            >
+              Source
+            </a>
+            <span>Not an official X product.</span>
+          </p>
         </div>
       </footer>
     </div>

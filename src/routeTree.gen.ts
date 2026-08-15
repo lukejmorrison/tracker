@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CourtsRouteImport } from './routes/courts'
+import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as FiltersRouteImport } from './routes/filters'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SourcesRouteImport } from './routes/sources'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const CourtsRoute = CourtsRouteImport.update({
   id: '/courts',
   path: '/courts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedbackRoute = FeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FiltersRoute = FiltersRouteImport.update({
@@ -56,6 +62,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/courts': typeof CourtsRoute
+  '/feedback': typeof FeedbackRoute
   '/filters': typeof FiltersRoute
   '/login': typeof LoginRoute
   '/sources': typeof SourcesRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/courts': typeof CourtsRoute
+  '/feedback': typeof FeedbackRoute
   '/filters': typeof FiltersRoute
   '/login': typeof LoginRoute
   '/sources': typeof SourcesRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/courts': typeof CourtsRoute
+  '/feedback': typeof FeedbackRoute
   '/filters': typeof FiltersRoute
   '/login': typeof LoginRoute
   '/sources': typeof SourcesRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/courts'
+    | '/feedback'
     | '/filters'
     | '/login'
     | '/sources'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/courts'
+    | '/feedback'
     | '/filters'
     | '/login'
     | '/sources'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/courts'
+    | '/feedback'
     | '/filters'
     | '/login'
     | '/sources'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CourtsRoute: typeof CourtsRoute
+  FeedbackRoute: typeof FeedbackRoute
   FiltersRoute: typeof FiltersRoute
   LoginRoute: typeof LoginRoute
   SourcesRoute: typeof SourcesRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/courts'
       fullPath: '/courts'
       preLoaderRoute: typeof CourtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/filters': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CourtsRoute: CourtsRoute,
+  FeedbackRoute: FeedbackRoute,
   FiltersRoute: FiltersRoute,
   LoginRoute: LoginRoute,
   SourcesRoute: SourcesRoute,

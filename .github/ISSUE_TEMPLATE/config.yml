@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Live atlas
+    url: https://gov-tracker.grok.me
+    about: Read the compiled country page before filing. The gap is often already named.
+  - name: Feedback framework
+    url: https://github.com/lukejmorrison/tracker/blob/main/docs/FEEDBACK.md
+    about: What we compile, what we will not, and the source bar.

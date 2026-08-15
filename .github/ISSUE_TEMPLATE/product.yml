@@ -1,0 +1,34 @@
+name: Product
+description: The page is true but still does not move the needle — UX, comparison, missing framing.
+title: "Product: "
+labels: ["product"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when the facts are right and the page still reads like a total. See [docs/VISION.md](https://github.com/lukejmorrison/tracker/blob/main/docs/VISION.md).
+  - type: input
+    id: page
+    attributes:
+      label: Which page
+      placeholder: /country/GB
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: What a reader takes away today
+    validations:
+      required: true
+  - type: textarea
+    id: should
+    attributes:
+      label: What would actually move the needle
+      description: Named list, live file, comparison, gap sentence — not “add more data.”
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Public sources we should be compiling (if any)
+      placeholder: https://

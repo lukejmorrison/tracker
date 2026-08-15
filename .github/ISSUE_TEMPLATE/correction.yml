@@ -1,0 +1,53 @@
+name: Correction
+description: A number, date, status, statute, or still-allowed line is wrong.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A primary source URL is required. News is supporting, not sufficient, unless it quotes the order.
+        See [docs/FEEDBACK.md](https://github.com/lukejmorrison/tracker/blob/main/docs/FEEDBACK.md).
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      description: Name or ISO code (CA, GB, JP…).
+      placeholder: GB
+    validations:
+      required: true
+  - type: input
+    id: field
+    attributes:
+      label: What is wrong
+      description: Volume, status, statute name, snapshot, gap sentence, duty label…
+      placeholder: Ofcom investigation listed as decided
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text
+      description: Paste the line as it appears on the page.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed text
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source URL
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: as-of
+    attributes:
+      label: Last public date on that source
+      placeholder: 3 February 2026
+    validations:
+      required: true

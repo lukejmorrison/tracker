@@ -3,3 +3,12 @@ node_modules/
 .github_repo
 .env
 .env.*
+.vercel/
+artifacts/
+attachments/
+.grok/
+screenshots/*.png
+*.log
+dist/
+.DS_Store
+.node_modules.lock

@@ -1,0 +1,48 @@
+name: Named duties
+description: X or a government published a category list or volume split we did not compile.
+title: "Duties: "
+labels: ["named-duties"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We compile lists **as the publisher grouped them**. Do not send a finer split than the source.
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: JP
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What did they publish
+      options:
+        - Volume split (e.g. Japan 96 / 4)
+        - Named illegal-content / statutory duty list
+        - Child-only / age-gated list
+        - Other official category table
+    validations:
+      required: true
+  - type: textarea
+    id: items
+    attributes:
+      label: The list or split, copied
+      description: Paste the publisher’s grouping. Do not invent percentages.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source URL
+      description: X transparency / help page, ministry notice, or regulator code.
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: as-of
+    attributes:
+      label: Last public date
+    validations:
+      required: true

@@ -1,0 +1,81 @@
+name: Missing proceeding
+description: A named court, regulator, or legislative file is public and not on the docket.
+title: "Proceeding: "
+labels: ["proceeding"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Named, dated, sourced. Open investigations are compiled as investigations — not as takedowns.
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: CA
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Case or file name
+      placeholder: X Corp. v. …
+    validations:
+      required: true
+  - type: input
+    id: court
+    attributes:
+      label: Court or agency
+      placeholder: Federal Court of Australia
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - court
+        - regulator
+        - legislature
+        - agency-order
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status as of the source
+      options:
+        - pending
+        - appealed
+        - decided
+        - complied
+        - monitoring
+        - died
+        - active-order
+    validations:
+      required: true
+  - type: input
+    id: filed
+    attributes:
+      label: Filed / opened
+      placeholder: 12 January 2026
+  - type: input
+    id: updated
+    attributes:
+      label: Last public date
+      placeholder: 3 February 2026
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What the file does
+      description: Mechanism, not a speech. What would change on X if this file goes one way or the other.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source URL
+      placeholder: https://
+    validations:
+      required: true

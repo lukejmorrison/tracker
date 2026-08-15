@@ -18,6 +18,7 @@ import {
   proceedingsFor,
 } from "@/data";
 import { formatInt, formatPct } from "@/lib/utils";
+import { issueUrl } from "@/lib/feedback";
 import { useWatchlist } from "@/store/watchlist";
 
 export const Route = createFileRoute("/country/$code")({
@@ -187,6 +188,16 @@ function CountryPage() {
         <div className="mt-5">
           <Docket items={docket} countryName={country.name} />
         </div>
+        <p className="mt-4">
+          <a
+            href={issueUrl("proceeding", country.code)}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+          >
+            Missing a named file for {country.name}?
+          </a>
+        </p>
       </section>
 
       <section>
