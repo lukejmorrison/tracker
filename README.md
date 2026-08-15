@@ -65,14 +65,27 @@ How to add a country row or a court file: [docs/DATA.md](docs/DATA.md) and [CONT
 
 ---
 
-## Run it
+## Run it locally
+
+Need [Node 22+](https://nodejs.org/). No database. No API key.
 
 ```bash
+git clone https://github.com/lukejmorrison/tracker.git
+cd tracker
 npm install
-npm run dev          # http://127.0.0.1:8080
-npm run typecheck
-npm run build
+npm run dev
 ```
+
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080). Then click Japan, the UK, Canada, Courts, and [Report a gap](http://127.0.0.1:8080/feedback).
+
+```bash
+npm run check              # TypeScript
+npm run build && npm start # optional production-shaped build
+```
+
+If 8080 is taken: `PORT=5173 npm run dev`.
+
+Full walkthrough, what to click, and how to file: [docs/LOCAL.md](docs/LOCAL.md) · [CONTRIBUTING.md](CONTRIBUTING.md).
 
 React 19 · TanStack Start · Tailwind v4.
 

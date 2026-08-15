@@ -123,15 +123,19 @@ function authPopupPlugin(): Plugin {
   };
 }
 
-// `0.0.0.0:8080` is the live-preview contract — don't change host/port.
-// Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it
-// opens a second dev-server port, which breaks the single-port preview.
-// The dev server starts once `src/router.tsx` and `src/routes/` exist — see
-// AGENTS.md § "First scaffold".
+const port = Number(process.env.PORT) || 8080;
+
+// Default 8080 so the live preview and `npm run dev` stay on one port.
+// Override with PORT=5173 if 8080 is taken on your machine.
 export default defineConfig(({ command }) => ({
   server: {
     host: "0.0.0.0",
-    port: 8080,
+    port,
+    strictPort: true,
+  },
+  preview: {
+    host: "0.0.0.0",
+    port,
     strictPort: true,
   },
   resolve: { tsconfigPaths: true },

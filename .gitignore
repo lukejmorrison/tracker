@@ -10,5 +10,8 @@ attachments/
 screenshots/*.png
 *.log
 dist/
+.output/
+.nitro/
+.tanstack/
 .DS_Store
 .node_modules.lock

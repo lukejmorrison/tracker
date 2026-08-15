@@ -2,7 +2,7 @@
 
 The atlas is a compiled record. It gets sharper when people send **named, sourced** gaps — and worse when we absorb rumor.
 
-This is the only intake path. Use it in the [app](https://gov-tracker.grok.me/feedback) or [open a GitHub issue](https://github.com/lukejmorrison/tracker/issues/new/choose).
+This is the only intake path. Use `/feedback` on a [local copy](LOCAL.md) or on [tracker.wizwam.com/feedback](https://tracker.wizwam.com/feedback), or [open a GitHub issue](https://github.com/lukejmorrison/tracker/issues/new/choose).
 
 ## The bar
 
@@ -14,6 +14,8 @@ A report lands only if it includes:
 4. **What should change** on the page — one sentence.
 
 No source → labeled `needs-source` and closed if none arrives.
+
+If you reproduced it on a local copy, say so and include the path (`/country/GB`). See [LOCAL.md](LOCAL.md).
 
 “I opened X in [country] and a post was withheld” is useful as a *prompt to look*, not as a row. Individual withholdings are still not in any public catalog. We will not invent one from screenshots.
 

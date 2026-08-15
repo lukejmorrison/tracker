@@ -51,6 +51,11 @@ function FeedbackPage() {
           <li>Open investigations stay investigations until the source publishes a decision.</li>
           <li>No source → it does not land.</li>
         </ul>
+        <p className="mt-4 text-sm text-muted">
+          Running a local copy? Same four lanes. Include the path you tested
+          (<span className="font-mono text-fg">/country/GB</span>) and that you
+          reproduced it on localhost.
+        </p>
         <div className="mt-4 flex flex-wrap gap-4 text-sm">
           <a
             href={chooseIssueUrl()}
@@ -67,6 +72,14 @@ function FeedbackPage() {
             className="text-muted underline-offset-4 hover:text-fg hover:underline"
           >
             Full framework
+          </a>
+          <a
+            href={`${FEEDBACK_REPO}/blob/main/docs/LOCAL.md`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-muted underline-offset-4 hover:text-fg hover:underline"
+          >
+            Run it locally
           </a>
           <a
             href={`${FEEDBACK_REPO}/blob/main/docs/VISION.md`}

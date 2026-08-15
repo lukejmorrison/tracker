@@ -32,3 +32,9 @@ body:
     attributes:
       label: Public sources we should be compiling (if any)
       placeholder: https://
+  - type: checkboxes
+    id: local
+    attributes:
+      label: Checked locally
+      options:
+        - label: I pulled the repo, ran `npm run dev`, and reproduced this on http://127.0.0.1:8080
