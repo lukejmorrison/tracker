@@ -6,3 +6,4 @@ export * from "./menu";
 export * from "./rank";
 export * from "./heat";
 export * from "./iso3166";
+export * from "./encyclopedia";

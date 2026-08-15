@@ -34,7 +34,7 @@ These pages are the product. If one of them is wrong, that is the report.
 | `/country/CA` | Open access + live B.C. / OPC / C-63 docket |
 | `/country/BR` | TSE 2026 filter + 2024 STF block (lifted) |
 | `/courts` | Live files across countries |
-| `/sources` | Primary sources, Wikipedia demoted |
+| `/sources` | Primary sources; Grokipedia first in the encyclopedia pair, Wikipedia kept |
 | `/feedback` | Four lanes that open GitHub issue forms |
 
 Search `japan` should return Japan only. `/country/ZZ` should 404.

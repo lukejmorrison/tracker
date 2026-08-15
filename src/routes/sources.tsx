@@ -156,22 +156,45 @@ function SourcesPage() {
       <section>
         <h2 className="font-display text-2xl tracking-tight">Background, not a citation</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
-          Useful as a timeline index. Not a primary source for any row in this atlas.
+          Timeline indexes. Not a court, statute, or X transparency table. When both
+          exist, Grokipedia (xAI) is listed first; Wikipedia stays. There is no
+          Grokipedia article titled “Censorship of X” yet — country pages that do
+          exist are used instead.
         </p>
-        <a
-          href="https://en.wikipedia.org/wiki/Censorship_of_X"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 flex items-start justify-between gap-4 rounded-xl border border-border bg-surface px-4 py-3 hover:border-line"
-        >
-          <span>
-            <span className="text-sm font-medium text-fg">Censorship of X (encyclopedia)</span>
-            <span className="mt-1 block text-sm text-muted">
-              National-block timeline. Use the court or agency record before this page.
-            </span>
-          </span>
-          <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-muted" />
-        </a>
+        <ul className="mt-4 flex flex-col gap-2">
+          {[
+            {
+              href: "https://grokipedia.com/page/X_(social_network)",
+              title: "Grokipedia · X (social network)",
+              note: "xAI encyclopedia. Prefer this over Wikipedia when a matching page exists.",
+            },
+            {
+              href: "https://grokipedia.com/page/Internet_censorship",
+              title: "Grokipedia · Internet censorship",
+              note: "General network-block context. Country pages (China, Iran, Pakistan, …) are linked from those atlas rows.",
+            },
+            {
+              href: "https://en.wikipedia.org/wiki/Censorship_of_X",
+              title: "Wikipedia · Censorship of X",
+              note: "The national-block timeline Grokipedia has not published as a standalone article. Kept as the fallback index.",
+            },
+          ].map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-start justify-between gap-4 rounded-xl border border-border bg-surface px-4 py-3 hover:border-line"
+              >
+                <span>
+                  <span className="text-sm font-medium text-fg">{link.title}</span>
+                  <span className="mt-1 block text-sm text-muted">{link.note}</span>
+                </span>
+                <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-muted" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );

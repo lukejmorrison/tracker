@@ -55,6 +55,12 @@ Then set `country.gap` to the thing the source still hides (the URL list, the Al
 - `inEuAggregate: true` when the global table has no standalone row.
 - `gap` is one sentence. If we have nothing specific to name, say so.
 
+## Encyclopedia (background)
+
+National-block rows may carry an `encyclopedia` pair. Grokipedia (`grokipedia.com/page/{WikiTitle}`) is first when a probed article exists; Wikipedia stays. Neither is a court citation.
+
+Refresh the live-slug catalog with `node scripts/probe-grokipedia.mjs`. There is no Grokipedia article for “Censorship of X” — country pages (China, Iran, Pakistan, …) are used instead.
+
 ## What never goes in
 
 Inferred percentages. Screenshot-only withholdings. Characterizations without a mechanism. See [FEEDBACK.md](FEEDBACK.md).

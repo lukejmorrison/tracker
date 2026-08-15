@@ -72,14 +72,38 @@ export function RestrictionList({ items }: { items: Restriction[] }) {
             {item.legalBasis ? (
               <p className="mt-2 text-sm text-subtle">Basis: {item.legalBasis}</p>
             ) : null}
-            <a
-              href={item.sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 inline-block text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
-            >
-              {item.source}
-            </a>
+            <div className="mt-3 flex flex-col gap-1">
+              <a
+                href={item.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+              >
+                {item.source}
+              </a>
+              {item.encyclopedia?.grokipedia &&
+              item.encyclopedia.grokipedia.href !== item.sourceUrl ? (
+                <a
+                  href={item.encyclopedia.grokipedia.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+                >
+                  Grokipedia · {item.encyclopedia.grokipedia.title}
+                </a>
+              ) : null}
+              {item.encyclopedia?.wikipedia &&
+              item.encyclopedia.wikipedia.href !== item.sourceUrl ? (
+                <a
+                  href={item.encyclopedia.wikipedia.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+                >
+                  Wikipedia · {item.encyclopedia.wikipedia.title}
+                </a>
+              ) : null}
+            </div>
           </article>
         );
       })}
