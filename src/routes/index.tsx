@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
+import { AtlasMap } from "@/components/atlas-map";
 import { CountryCard } from "@/components/country-card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -92,6 +93,8 @@ function Home() {
     for (const c of COUNTRY_LIST) base[atlasStatus(c)] += 1;
     return base;
   }, []);
+
+  const activeCodes = useMemo(() => new Set(filtered.map((c) => c.code)), [filtered]);
 
   const local = localHint ? COUNTRY_LIST.find((c) => c.code === localHint) : undefined;
   const localInView =
@@ -188,6 +191,8 @@ function Home() {
           ))}
         </div>
       </section>
+
+      <AtlasMap activeCodes={activeCodes} />
 
       {local && localInView ? (
         <section>
