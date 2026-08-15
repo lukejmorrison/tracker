@@ -29,6 +29,11 @@ export type Restriction = {
   sourceUrl: string;
   since?: string;
   verified: boolean;
+  /** Background encyclopedia pair. Grokipedia first when a probed page exists. */
+  encyclopedia?: {
+    grokipedia?: { title: string; href: string };
+    wikipedia?: { title: string; href: string };
+  };
 };
 
 export type RequestStats = {
