@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
+import { SiteMark } from "@/components/site-mark";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -16,12 +17,7 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className="min-h-dvh bg-bg text-fg">
       <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur-sm">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6">
-          <Link to="/" className="flex min-w-0 items-baseline gap-1.5">
-            <span className="font-display text-lg tracking-tight text-fg sm:text-xl">
-              tracker
-            </span>
-            <span className="truncate font-mono text-xs text-muted">.wizwam.com</span>
-          </Link>
+          <SiteMark />
           <nav className="flex items-center gap-1 sm:gap-2">
             {NAV.map((item) => {
               const active =
