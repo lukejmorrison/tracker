@@ -8,8 +8,12 @@ import {
   type ProceedingStatus,
 } from "@/data";
 import { cn } from "@/lib/utils";
+import { pageTitle } from "@/lib/brand";
 
-export const Route = createFileRoute("/courts")({ component: CourtsPage });
+export const Route = createFileRoute("/courts")({
+  head: () => ({ meta: [{ title: pageTitle("Courts") }] }),
+  component: CourtsPage,
+});
 
 const FILTERS: { id: "live" | "all" | ProceedingStatus; label: string }[] = [
   { id: "live", label: "Live" },

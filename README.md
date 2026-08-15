@@ -1,11 +1,11 @@
-# tracker.grok.me
+# tracker
 
 **See what governments require X to hide — by country.**
 
-[Live atlas](https://gov-tracker.grok.me) · [United Kingdom](https://gov-tracker.grok.me/country/GB) · [Japan](https://gov-tracker.grok.me/country/JP) · [Canada](https://gov-tracker.grok.me/country/CA) · [Vision](docs/VISION.md) · [Feedback](docs/FEEDBACK.md)
+[Live atlas](https://tracker.wizwam.com) · [United Kingdom](https://tracker.wizwam.com/country/GB) · [Japan](https://tracker.wizwam.com/country/JP) · [Canada](https://tracker.wizwam.com/country/CA) · [Vision](docs/VISION.md) · [Feedback](docs/FEEDBACK.md)
 
 <p align="center">
-  <img src="public/og.jpg" alt="tracker.grok.me — what governments require X to hide" width="720" />
+  <img src="public/og.jpg" alt="tracker — what governments require X to hide" width="720" />
 </p>
 
 This is a compiled transparency atlas, not a live feed of every withheld post. X still does not publish that catalog. We publish everything that *is* public: open-source ranking filters, named court and regulator files, statutory duty lists, and the country rows from X’s own transparency reports.
@@ -43,7 +43,7 @@ Read [docs/VISION.md](docs/VISION.md) for the editorial bar.
 
 The atlas is only as sharp as the public record people send us.
 
-- **In the app:** [Report a gap](https://gov-tracker.grok.me/feedback)
+- **In the app:** [Report a gap](https://tracker.wizwam.com/feedback)
 - **On GitHub:** [open an issue](https://github.com/lukejmorrison/tracker/issues/new/choose)
 - **The bar:** a primary source URL, or it does not land. See [docs/FEEDBACK.md](docs/FEEDBACK.md).
 

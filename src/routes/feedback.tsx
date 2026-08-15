@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 import { FEEDBACK_REPO, LANES, chooseIssueUrl, issueUrl } from "@/lib/feedback";
 
-export const Route = createFileRoute("/feedback")({ component: FeedbackPage });
+export const Route = createFileRoute("/feedback")({
+  head: () => ({ meta: [{ title: "Report a gap · tracker" }] }),
+  component: FeedbackPage,
+});
 
 function FeedbackPage() {
   return (

@@ -8,8 +8,12 @@ import {
   WHAT_WE_CAN_SEE,
 } from "@/data";
 import { formatInt, formatPct } from "@/lib/utils";
+import { pageTitle } from "@/lib/brand";
 
-export const Route = createFileRoute("/sources")({ component: SourcesPage });
+export const Route = createFileRoute("/sources")({
+  head: () => ({ meta: [{ title: pageTitle("Sources") }] }),
+  component: SourcesPage,
+});
 
 const LINKS = [
   {
@@ -68,11 +72,6 @@ const LINKS = [
     note: "Dataset cited in the filter source as the electoral-court list.",
   },
   {
-    title: "Censorship of X (encyclopedia)",
-    href: "https://en.wikipedia.org/wiki/Censorship_of_X",
-    note: "National-block timeline for China, Iran, Russia, Myanmar, North Korea, Turkmenistan, Pakistan, Venezuela.",
-  },
-  {
     title: "B.C. AG statement on X / Intimate Images Protection Act",
     href: "https://news.gov.bc.ca/releases/2025AG0066-001118",
     note: "X’s November 2025 B.C. Supreme Court petition of a CRT global-takedown order.",
@@ -93,7 +92,7 @@ function SourcesPage() {
   return (
     <div className="flex flex-col gap-10">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-widest text-subtle">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted">
           Methodology · compiled {AS_OF}
         </p>
         <h1 className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
@@ -147,11 +146,32 @@ function SourcesPage() {
                   <span className="text-sm font-medium text-fg">{link.title}</span>
                   <span className="mt-1 block text-sm text-muted">{link.note}</span>
                 </span>
-                <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-subtle" />
+                <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-muted" />
               </a>
             </li>
           ))}
         </ul>
+      </section>
+
+      <section>
+        <h2 className="font-display text-2xl tracking-tight">Background, not a citation</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          Useful as a timeline index. Not a primary source for any row in this atlas.
+        </p>
+        <a
+          href="https://en.wikipedia.org/wiki/Censorship_of_X"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 flex items-start justify-between gap-4 rounded-xl border border-border bg-surface px-4 py-3 hover:border-line"
+        >
+          <span>
+            <span className="text-sm font-medium text-fg">Censorship of X (encyclopedia)</span>
+            <span className="mt-1 block text-sm text-muted">
+              National-block timeline. Use the court or agency record before this page.
+            </span>
+          </span>
+          <ExternalLink className="mt-0.5 size-3.5 shrink-0 text-muted" />
+        </a>
       </section>
     </div>
   );

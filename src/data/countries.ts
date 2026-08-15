@@ -43,8 +43,8 @@ export const COUNTRIES: Country[] = [
         stillAllowed: "Service is available again. The remaining live restriction is the 2026 election recommendation filter.",
         since: "30 August 2024 – 8 October 2024",
         legalBasis: "STF / TSE orders (2024)",
-        source: "Public court record / contemporaneous reporting",
-        sourceUrl: "https://github.com/xai-org/x-algorithm",
+        source: "STF / contemporaneous court reporting",
+        sourceUrl: "https://apnews.com/article/brazil-x-elon-musk-supreme-court-de-moraes-e32c4b4171e78cbe8994f53713a922f7",
         verified: true,
       },
     ],
@@ -331,7 +331,7 @@ export const COUNTRIES: Country[] = [
     restrictions: [
       {
         id: "it-dsa",
-        kind: "withhold",
+        kind: "legal-demand",
         title: "Local-law / DSA withholdings",
         summary:
           "Italy has used local-law and trusted-flagger paths for hate-speech withholdings. Latest volume sits in the EU aggregate.",
@@ -355,7 +355,7 @@ export const COUNTRIES: Country[] = [
     restrictions: [
       {
         id: "nl-dsa",
-        kind: "withhold",
+        kind: "legal-demand",
         title: "DSA member-state duties",
         summary: "Covered by the EU aggregate. No Netherlands-specific ranking filter.",
         notAllowed: "Content X withholds after a valid NL/EU order.",
@@ -402,7 +402,7 @@ export const COUNTRIES: Country[] = [
     restrictions: [
       {
         id: "pl-dsa",
-        kind: "withhold",
+        kind: "legal-demand",
         title: "DSA member-state orders",
         summary: "Included in the EU aggregate. No Poland-specific algorithm filter.",
         notAllowed: "Items withheld after a valid PL/EU order.",
@@ -1152,11 +1152,7 @@ export const STATUS_META: Record<
 export function countryMatchesQuery(c: Country, q: string): boolean {
   if (!q.trim()) return true;
   const n = q.trim().toLowerCase();
-  return (
-    c.name.toLowerCase().includes(n) ||
-    c.code.toLowerCase().includes(n) ||
-    c.snapshot.toLowerCase().includes(n)
-  );
+  return c.name.toLowerCase().includes(n) || c.code.toLowerCase().includes(n);
 }
 
 export function guessLocalCountry(): string | null {

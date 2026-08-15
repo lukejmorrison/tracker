@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { UserButton } from "@/lib/auth/gates";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -22,7 +20,7 @@ export function Shell({ children }: { children: ReactNode }) {
             <span className="font-display text-lg tracking-tight text-fg sm:text-xl">
               tracker
             </span>
-            <span className="truncate font-mono text-xs text-subtle">.grok.me</span>
+            <span className="truncate font-mono text-xs text-muted">.wizwam.com</span>
           </Link>
           <nav className="flex items-center gap-1 sm:gap-2">
             {NAV.map((item) => {
@@ -43,13 +41,12 @@ export function Shell({ children }: { children: ReactNode }) {
                 </Link>
               );
             })}
-            <AuthSlot />
           </nav>
         </div>
       </header>
       <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">{children}</main>
       <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-xs text-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>Compiled from the open-source X algorithm and X Transparency Reports.</p>
           <p className="flex flex-wrap gap-x-4 gap-y-1">
             <Link to="/feedback" className="hover:text-fg">
@@ -68,27 +65,5 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </footer>
     </div>
-  );
-}
-
-function AuthSlot() {
-  const { user, isPending } = useCurrentUserState();
-  if (isPending) {
-    return <div className="ml-1 size-8 animate-pulse rounded-full bg-raised" />;
-  }
-  if (user) {
-    return (
-      <div className="ml-1 hidden sm:block">
-        <UserButton />
-      </div>
-    );
-  }
-  return (
-    <Link
-      to="/login"
-      className="ml-1 rounded-sm border border-border px-3 py-2 text-sm text-muted hover:bg-raised hover:text-fg"
-    >
-      Sign in
-    </Link>
   );
 }

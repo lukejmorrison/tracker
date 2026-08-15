@@ -2,8 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BRAZIL_FILTER } from "@/data";
+import { pageTitle } from "@/lib/brand";
 
-export const Route = createFileRoute("/filters")({ component: FiltersPage });
+export const Route = createFileRoute("/filters")({
+  head: () => ({ meta: [{ title: pageTitle("Filters") }] }),
+  component: FiltersPage,
+});
 
 function FiltersPage() {
   const filter = BRAZIL_FILTER;

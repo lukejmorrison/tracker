@@ -12,6 +12,7 @@ import {
   REPORT_PERIOD,
   STATUS_META,
   atlasStatus,
+  compareAtlas,
   countryMatchesQuery,
   guessLocalCountry,
   type AtlasStatus,
@@ -19,6 +20,7 @@ import {
 } from "@/data";
 import { formatInt, formatPct } from "@/lib/utils";
 import { cn } from "@/lib/utils";
+import { pageTitle } from "@/lib/brand";
 
 type SearchParams = {
   q?: string;
@@ -31,6 +33,9 @@ export const Route = createFileRoute("/")({
     q: typeof raw.q === "string" ? raw.q : undefined,
     region: typeof raw.region === "string" ? raw.region : undefined,
     status: typeof raw.status === "string" ? raw.status : undefined,
+  }),
+  head: () => ({
+    meta: [{ title: pageTitle("Atlas") }],
   }),
   component: Home,
 });
@@ -79,7 +84,7 @@ function Home() {
       if (region !== "all" && c.region !== region) return false;
       if (status !== "all" && atlasStatus(c) !== status) return false;
       return true;
-    }).sort((a, b) => a.name.localeCompare(b.name));
+    }).sort(compareAtlas);
   }, [q, region, status]);
 
   const counts = useMemo(() => {
@@ -89,13 +94,18 @@ function Home() {
   }, []);
 
   const local = localHint ? COUNTRY_LIST.find((c) => c.code === localHint) : undefined;
+  const localInView =
+    !!local &&
+    countryMatchesQuery(local, q) &&
+    (region === "all" || local.region === region) &&
+    (status === "all" || atlasStatus(local) === status);
 
   return (
     <div className="flex flex-col gap-10">
       <section className="grid gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
-          <p className="font-mono text-xs uppercase tracking-widest text-subtle">
-            As of {AS_OF}
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">
+            Compiled {AS_OF} · demand figures {REPORT_PERIOD}
           </p>
           <h1 className="mt-3 font-display text-3xl tracking-tight text-fg sm:text-5xl">
             What is allowed.
@@ -113,7 +123,9 @@ function Home() {
           <div className="mt-6 flex flex-wrap gap-2">
             <Badge tone="filter">1 open-source government filter</Badge>
             <Badge tone="blocked">{GLOBAL_STATS.blockedCountries} national blocks</Badge>
-            <Badge tone="demand">{formatInt(GLOBAL_STATS.removalRequests)} removal requests</Badge>
+            <Badge tone="demand">
+              {formatInt(GLOBAL_STATS.removalRequests)} removal requests · {REPORT_PERIOD}
+            </Badge>
           </div>
         </div>
         <aside className="grid grid-cols-2 gap-3 lg:col-span-5">
@@ -169,7 +181,7 @@ function Home() {
                   style={{ width: `${Math.max(6, (row.received / CHART_MAX) * 100)}%` }}
                 />
               </span>
-              <span className="text-right font-mono text-xs tabular-nums text-subtle">
+              <span className="text-right font-mono text-xs tabular-nums text-muted">
                 {formatInt(row.received)}
               </span>
             </div>
@@ -177,22 +189,28 @@ function Home() {
         </div>
       </section>
 
-      {local ? (
+      {local && localInView ? (
         <section>
-          <p className="font-mono text-xs uppercase tracking-widest text-subtle">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">
             Suggested from your locale
           </p>
           <div className="mt-3 max-w-xl">
             <CountryCard country={local} hint />
           </div>
         </section>
+      ) : local && (q || region !== "all" || status !== "all") ? (
+        <p className="text-sm text-muted">
+          Your locale ({local.name}) is not in this view.
+        </p>
       ) : null}
 
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-4">
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-subtle" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
             <Input
+              id="country-filter"
+              name="q"
               value={q}
               onChange={(e) => setParam({ q: e.target.value })}
               placeholder="Filter by country or code"
@@ -214,18 +232,19 @@ function Home() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-subtle">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
           {(Object.keys(STATUS_META) as AtlasStatus[]).map((key) => (
             <span key={key} className="inline-flex items-center gap-1.5">
               <span className={cn("size-2 rounded-full", railDot(key))} />
               {STATUS_META[key].label}
-              <span className="tabular-nums text-muted">{counts[key]}</span>
+              <span className="tabular-nums">{counts[key]}</span>
             </span>
           ))}
         </div>
 
         <p className="text-sm text-muted">
-          {filtered.length} {filtered.length === 1 ? "country" : "countries"}
+          {filtered.length} {filtered.length === 1 ? "country" : "countries"} · sorted by
+          severity
         </p>
 
         {filtered.length === 0 ? (
@@ -247,7 +266,7 @@ function Home() {
 function Stat({ label, value, note }: { label: string; value: string; note: string }) {
   return (
     <div className="rounded-xl border border-border bg-surface px-4 py-4">
-      <p className="text-xs uppercase tracking-wider text-subtle">{label}</p>
+      <p className="text-xs uppercase tracking-wider text-muted">{label}</p>
       <p className="mt-2 font-display text-3xl tabular-nums tracking-tight">{value}</p>
       <p className="mt-1 text-xs text-muted">{note}</p>
     </div>
@@ -271,6 +290,7 @@ function ChipRow<T extends string>({
           <button
             key={item.id}
             type="button"
+            aria-pressed={active}
             onClick={() => onChange(item.id)}
             className={cn(
               "h-10 shrink-0 rounded-sm border px-3 text-sm transition-colors duration-150",

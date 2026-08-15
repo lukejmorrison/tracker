@@ -2,41 +2,36 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
+import { APP_DESCRIPTION, APP_NAME, APP_TITLE, APP_ORIGIN } from "@/lib/brand";
+import { NotFoundPage } from "@/lib/not-found";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "tracker.grok.me";
 const host = import.meta.env.VITE_PUBLIC_HOSTNAME;
-const ogImage = host ? `https://${host}/og.jpg` : undefined;
+const ogImage = host ? `https://${host}/og.jpg` : `${APP_ORIGIN}/og.jpg`;
 
 export const Route = createRootRoute({
+  notFoundComponent: () => <NotFoundPage />,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: APP_NAME },
-      {
-        name: "description",
-        content:
-          "See what governments require X to hide — by country. Open-source algorithm filters, national blocks, and transparency-report demand.",
-      },
+      { title: APP_TITLE },
+      { name: "description", content: APP_DESCRIPTION },
       { name: "apple-mobile-web-app-title", content: APP_NAME },
       { name: "theme-color", content: "#09090b" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: APP_NAME },
-      ...(ogImage
-        ? [
-            { property: "og:image", content: ogImage },
-            { property: "og:image:width", content: "1200" },
-            { property: "og:image:height", content: "630" },
-          ]
-        : []),
+      { property: "og:title", content: APP_TITLE },
+      { property: "og:description", content: APP_DESCRIPTION },
+      { property: "og:image", content: ogImage },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "canonical", href: APP_ORIGIN },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/__grok/manifest.webmanifest" },
-      { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
