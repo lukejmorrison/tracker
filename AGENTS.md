@@ -631,3 +631,7 @@ prompt:    often one line — expand into a full product
 never:     ask the user to run commands, open localhost, or QA your environment
 never:     delete or abandon /workspace/startup.sh
 ```
+
+## README
+
+- This repo is public. When a change alters anything a user can see, add or refresh a screenshot in README.md (images in docs/screenshots/, relative links). The README is the marketing.
